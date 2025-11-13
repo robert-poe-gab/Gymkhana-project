@@ -1,0 +1,7 @@
+[org]
+disclosures = [
+	{ doc_type='web-page', url='http://p2.robertgp.cat/index.php?r=petjada', domain='p2.robertgp.cat' }
+]
+
+[upstream]
+services = [url='https://dinahosting.com' ]
