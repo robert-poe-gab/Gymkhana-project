@@ -11,7 +11,6 @@ error_reporting(E_ALL);
 
 $config = [];
 
-
 $config["db"] = array();
 $config["db"]["user"] = 'admin';
 $config["db"]["password"] = 'password';

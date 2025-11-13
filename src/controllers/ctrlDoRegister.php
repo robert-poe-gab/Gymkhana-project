@@ -14,24 +14,36 @@ function ctrlDoRegister($request, $response, $container)
 
 
     if (empty($nickname) || empty($name) || empty($lastName) || empty($email) || empty($password)) {
-        return $response->redirect("Location: /index.php?r=ctrlRegister&error=1");
+        $response->redirect("Location: /index.php?r=register&error=1");
+        return $response;
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return $response->redirect("Location: /index.php?r=ctrlRegister&error=2");
+        $response->redirect("Location: /index.php?r=register&error=2");
+        return $response;
     }
 
     if ($password !== $repeatPassword) {
-        return $response->redirect("Location: /index.php?r=ctrlRegister&error=3");
+        $response->redirect("Location: /index.php?r=register&error=3");
+        return $response;
     }
 
     if (strlen($password) < 8) {
-        return $response->redirect("Location: /index.php?r=ctrlRegister&error=4");
+        $response->redirect("Location: /index.php?r=register&error=4");
+        return $response;
     }
 
-    $userModel->add($name, $lastName, $nickname, $email, $password);
+
+    try {
+        $userModel->add($name, $lastName, $nickname, $email, $password);
+    } catch (PDOException $e) {
+        $response->redirect("Location: /index.php?r=register&error=5");
+        return $response;
+    }
 
     $response->setSession("nickname", $nickname);
 
-    return $response->redirect("Location: /index.php?r=ctrlRegister");
+    $response->redirect("Location: /index.php?r=login&success=1");
+
+    return $response;
 }

@@ -13,6 +13,9 @@
         <div class="alert alert-danger <?php if(!isset($_GET["error"]) || !in_array($_GET["error"], ["1","2"])) echo "d-none" ?>">
             Credencials incorrectes. Torna-ho a provar.
         </div>
+        <div class="alert alert-success <?php if(!isset($_GET["success"]) || $_GET["success"] != "1") echo "d-none" ?>">
+            Usuari creat correctament. Pots iniciar sessió.
+        </div>
 
         <form action="/index.php?r=ctrlDoLogin" method="POST">
             <input type="hidden" name="r" value="doLogin">

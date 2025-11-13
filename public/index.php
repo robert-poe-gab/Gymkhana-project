@@ -15,6 +15,7 @@ include "../src/models/Users.php";
 include "../src/models/Gymkhana.php";
 include "../src/models/Comms.php";
 include "../src/models/ODS.php";
+include "../src/models/Quests.php";
 include "../src/Container.php";
 
 /**
@@ -31,6 +32,7 @@ include "../src/controllers/ctrlDoLogOut.php";
 include "../src/controllers/ctrlGymkhana.php";
 include "../src/controllers/ctrlCreateGymkhana.php";
 include "../src/controllers/ctrlViewGymkhana.php";
+// include "../src/controllers/ctrlViewQuests.php";
 include "../src/controllers/ctrlUserProfile.php";
 include "../src/controllers/ctrlExplorateGymkhana.php";
 include "../src/controllers/ctrlValidarComms.php";
@@ -48,6 +50,10 @@ include "../src/controllers/ctrlSettings.php";
 include "../src/controllers/ctrlDoSettings.php";
 include "../src/controllers/ctrlSaveSettings.php";
 include "../src/controllers/ctrlAdminUser.php";
+include "../src/controllers/ctrlUserGet.php";
+include "../src/controllers/ctrlUserUpdate.php";
+include "../src/controllers/ctrlUserDelete.php";
+include "../src/controllers/ctrlUserAdd.php";
 
 include "../src/middleware/login.php";
 
@@ -134,7 +140,16 @@ elseif($r === "saveSettings") {
     $response = ctrlSaveSettings($request, $response, $container);
 }
 elseif($r === "adminUser") {
-    $response = login($request, $response, $container, "ctrlAdminUser");
+    $response = login($request, $response, $container, "ctrlUserGet");
+}
+elseif($r === "UserUpdate") {
+    $response = ctrlUserUpdate($request, $response, $container);
+}
+elseif($r === "UserDelete"){
+    $response = ctrlUserDelete($request,$response, $container);
+}
+elseif($r === "UserAdd"){
+    $response = ctrlUserAdd($request,$response, $container);
 }
 else {
   echo "No existeix la ruta";

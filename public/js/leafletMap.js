@@ -1,17 +1,36 @@
-const coordinates = document.getElementById('map').dataset.location
+const gymkhanaCoordinates = document.getElementById('map').dataset.location;
+const questsCoordinates = document.getElementById('map').dataset.quests;
 
-let [coordinateX, coordinateY] = coordinates.split(', ')
+const questsArray = JSON.parse(questsCoordinates);
 
-const map = L.map('map').setView(
-  [parseFloat(coordinateX), parseFloat(coordinateY)],
-  15
-)
+const coords = questsArray.map(coord => {
+  const [x, y] = coord.split(',').map(Number);
+  return [x, y];
+});
+
+let [coordinateX, coordinateY] = gymkhanaCoordinates.split(',').map(Number);
+
+const map = L.map('map').setView([coordinateX, coordinateY], 16);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map)
+}).addTo(map);
 
-var marker = L.marker([coordinateX - 0.001, coordinateY])
+L.marker([coordinateX - 0.001, coordinateY])
   .addTo(map)
-  .bindPopup('Començament de la gimcana!')
-  .openPopup()
+  .bindPopup('¡Comienzo de la gymkhana!')
+  .openPopup();
+
+coords.forEach(([x, y], i) => {
+  const numberIcon = L.divIcon({
+    className: 'quest-number',
+    html: `<div class="number-marker">${i + 1}</div>`,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+  });
+
+  L.marker([x, y], { icon: numberIcon }).addTo(map);
+});
+
+const polylinePoints = [[coordinateX - 0.001, coordinateY], ...coords];
+L.polyline(polylinePoints, { color: 'green', weight: 2 }).addTo(map);

@@ -11,17 +11,18 @@ class Container extends \Emeset\Container {
         $this->db = $this->Db();
     }
 
-        public function ods(){
+    public function ods(){
         return new \Models\ODS($this->db);
     }
-
     public function Users(){
         return new \Models\Users($this->db);
     }
     public function Gymkhana(){
         return new \Models\Gymkhana($this->db);
     }
-
+    public function Quests(){
+        return new \Models\Quests($this->db);
+    }
     public function Db(){
         return new \Models\Db(
             $this->config["db"]["user"], 

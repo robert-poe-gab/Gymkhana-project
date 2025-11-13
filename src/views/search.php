@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="ca">
 <?php include("../src/views/components/head.php") ?>
-<?php include("../src/views/components/navbarMobile.php") ?>
-<?php include("../src/views/components/navbarMobileButton.php") ?>
-<?php include("../src/views/components/sidebar.php") ?>
 
 <body>
-    <div id="searchBar" class="position-fixed row align-items-center text-center" style="top: 8vh;">
+    <?php include("../src/views/components/navbarMobile.php") ?>
+    <?php include("../src/views/components/navbarMobileButton.php") ?>
+    <div class="main-content"><div class="position-fixed top-0 start-0 h-100 d-none d-md-block">
+        <?php include("../src/views/components/sidebar.php") ?>
+    </div>
+    <div class="position-relative z-n1 row align-items-center text-center" style="top: 8vh; left: 0vh;">
         <h1 class="fw-bold">Cercar gimcana</h1>
-        <div class="mb-3 text-start w-75 mx-auto">
+        <div class="mb-3 text-start w-50 mx-auto">
             <input type="text" id="buscador" name="title" class="form-control rounded-pill text-secondary"
                 placeholder="Cercar gimcana...">
         </div>
@@ -45,15 +47,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-uppercase text-muted">
-                                    <?= $startDate->format('F'); ?>
-                                </div>
-
-                                <?php if (!empty($gymkhana['image_url'])) { ?>
+                                <?php if (!empty($gymkhana['image'])) { ?>
                                     <div class="position-relative" style="width: 40%;">
-                                        <img src="<?= htmlspecialchars($gymkhana['image_url']); ?>"
-                                            alt="Imatge de <?= htmlspecialchars($gymkhana['title']); ?>"
-                                            class="img-fluid w-100 object-fit-cover rounded-end-4">
+                                        <img src="<?= $gymkhana['image']; ?>"
+                                            alt="Imatge de <?= $gymkhana['title']; ?>"
+                                            class="img-fluid w-100 object-fit-cover rounded-4">
                                     </div>
                                 <?php } ?>
                             </div>

@@ -11,6 +11,20 @@
 
         <form action="index.php" method="POST">
             <input type="hidden" name="r" value="doRegister">
+            <div class="alert alert-danger <?php if(!isset($_GET["error"])) echo 'd-none'; ?>">
+                <?php
+                    $errorMessages = [
+                        "1" => "Tots els camps són obligatoris.",
+                        "2" => "El correu electrònic no és vàlid.",
+                        "3" => "Les contrasenyes no coincideixen.",
+                        "4" => "La contrasenya ha de tenir almenys 8 caràcters.",
+                        "5" => "Aquest correu ja està registrat."
+                    ];
+                    if (isset($_GET["error"]) && array_key_exists($_GET["error"], $errorMessages)) {
+                        echo htmlspecialchars($errorMessages[$_GET["error"]]);
+                    }
+                ?>
+            </div>
 
             <div class="mb-3 text-start">
                 <label for="nickname" class="form-label">Nom d'usuari</label>

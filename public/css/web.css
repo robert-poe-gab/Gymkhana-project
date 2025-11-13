@@ -184,6 +184,7 @@ body {
     margin-left: 25%;
     padding: 2rem;
     width: 100%;
+    margin-right: 10px;
   }
   .ck{
     background-color: var(--bs-primary);
@@ -207,4 +208,18 @@ body {
 
 .alt-text-color{
     color: var(--bs-text-color-alternative) !important;
+}
+.number-marker {
+  background: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }

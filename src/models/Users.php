@@ -22,7 +22,7 @@ class Users {
     }
 
     public function getByUser($email) {
-        $query = "select id, name, las_name, nickname, profile_image, email, password, isAdmin from user where email = :email;";
+        $query = "select * from user where email = :email;";
         $stm = $this->db->prepare($query);
         $stm->execute([
             ':email' => $email,
@@ -46,10 +46,16 @@ class Users {
                 ':isAdmin' => $isAdmin,
             ]);
         } catch (\PDOException $e) {
-            print_r($e);
-            die();
+            throw $e;
         }
         return $result;
+    }
+
+    public function deleteUser($id) {
+        $sql = "DELETE FROM user WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":id", $id);
+        return $stmt->execute();
     }
 
     public function updateUser($id, $data) {
@@ -66,9 +72,25 @@ class Users {
         $stmt->bindValue(":name", $data["name"]);
         $stmt->bindValue(":last_name", $data["last_name"]);
         $stmt->bindValue(":nickname", $data["nickname"]);
-        $stmt->bindValue(":email", $data["email"]);
+        $stmt->bindValue(":email", $data["email"] );
         if (!empty($data["profile_image"])) $stmt->bindValue(":profile_image", $data["profile_image"]);
         if (!empty($data["password"])) $stmt->bindValue(":password", $data["password"]);
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+    }
+
+
+    public function updateAdministrateUser($id, $data) {
+        $sql = "UPDATE user SET 
+                    name = :name,
+                    last_name = :last_name,
+                    isAdmin = :isAdmin
+                WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":name", $data["name"]);
+        $stmt->bindValue(":last_name", $data["last_name"]);
+        $stmt->bindValue(":isAdmin", $data["isAdmin"]);
         $stmt->bindValue(":id", $id);
         $stmt->execute();
     }

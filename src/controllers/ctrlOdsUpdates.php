@@ -8,5 +8,5 @@ function ctrlOdsUpdate($request, $response, $container) {
     $odsModel->update($id, $text);
 
     header("Location: index.php?r=ODS");
-    exit;
+    return $response;
 }

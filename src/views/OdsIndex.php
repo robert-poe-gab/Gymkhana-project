@@ -4,8 +4,6 @@
 
 
 <body>
-
-
     <div class="row ">      
       <div class="main-content"><div class="position-fixed top-0 start-0 h-100 d-none d-md-block">
         <?php include("../src/views/components/sidebar.php") ?>

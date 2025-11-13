@@ -17,7 +17,8 @@
                 <?= $gymkhana['description']?>
             </p>
             <div id="map" class="rounded-4 mx-2" style="height: 300px; width: auto;"
-                data-location="<?= $gymkhana['location'] ?>"></div>
+                data-location="<?= $gymkhana['location'] ?>"
+                data-quests="<?= $quests ?>"></div>
             <date><?= $gymkhana['start_date'] ?></date>
             <date><?= $gymkhana['end_date'] ?></date>
         </section>
