@@ -35,19 +35,19 @@ This implementation was developed by **RobertGP** as part of the **DAW2 Web Appl
 
 ## ⚙️ Technical Stack
 
-### Frontend
-- jQuery and jQuery UI for UI behavior.
-- Leaflet for maps and geolocation.
-- Bootstrap for responsive, accessible design (WCAG AA target).
-- JS sliders and visual effects; cookie policy and use of free images.
-- PDF generation in-browser or server-side for reports.
-
-### Backend
-- MVC pattern with **Emeset** PHP framework.
-- Middleware for restricted routes and role-based access.
-- CRUD operations for gymkhanas, challenges, users, comments.
-- Automatic validation and scoring for challenges.
-- ICS calendar export, PDF report generation, and WYSIWYG content editing.
+  ### Frontend
+  - jQuery and jQuery UI for UI behavior.
+  - Leaflet for maps and geolocation.
+  - Bootstrap for responsive, accessible design (WCAG AA target).
+  - JS sliders and visual effects; cookie policy and use of free images.
+  - PDF generation in-browser or server-side for reports.
+  
+  ### Backend
+  - MVC pattern with **Emeset** PHP framework.
+  - Middleware for restricted routes and role-based access.
+  - CRUD operations for gymkhanas, challenges, users, comments.
+  - Automatic validation and scoring for challenges.
+  - ICS calendar export, PDF report generation, and WYSIWYG content editing.
 
 ## 🐳 Deployment & Version Control
 - Git with a manual **GitFlow** branching methodology.
