@@ -16,6 +16,7 @@ include "../src/models/Gymkhana.php";
 include "../src/models/Comms.php";
 include "../src/models/ODS.php";
 include "../src/models/Quests.php";
+include "../src/models/Answer.php";
 include "../src/Container.php";
 
 /**
@@ -32,7 +33,9 @@ include "../src/controllers/ctrlDoLogOut.php";
 include "../src/controllers/ctrlGymkhana.php";
 include "../src/controllers/ctrlCreateGymkhana.php";
 include "../src/controllers/ctrlViewGymkhana.php";
-// include "../src/controllers/ctrlViewQuests.php";
+include "../src/controllers/ctrlViewQuest.php";
+include "../src/controllers/ctrlSendAnswer.php";
+include "../src/controllers/ctrlSubscribeGymkhana.php";
 include "../src/controllers/ctrlUserProfile.php";
 include "../src/controllers/ctrlExplorateGymkhana.php";
 include "../src/controllers/ctrlValidarComms.php";
@@ -54,8 +57,14 @@ include "../src/controllers/ctrlUserGet.php";
 include "../src/controllers/ctrlUserUpdate.php";
 include "../src/controllers/ctrlUserDelete.php";
 include "../src/controllers/ctrlUserAdd.php";
+include "../src/controllers/ctrlAdminComms.php";
+include "../src/controllers/ctrlPublishComm.php";
+include "../src/controllers/ctrlDeleteComm.php";
+include "../src/controllers/ctrlCarbon.php";
+include "../src/controllers/ctrl404.php";
 
 include "../src/middleware/login.php";
+include "../src/middleware/admin.php";
 
 $container = new \Container($config);
 $request = $container->request();
@@ -73,6 +82,7 @@ $response = $container->response();
  }
  
  /* Front Controller, aquí es decideix quina acció s'executa */
+/* Front Controller, aquí es decideix quina acció s'executa */
 if($r === "") {
   $response = ctrlSearch($request, $response, $container);
 }
@@ -92,72 +102,82 @@ elseif($r === "doRegister") {
   $response = ctrlDoRegister($request, $response, $container);
 }
 elseif($r === "createGymkhana") {
-  // $response = login($request, $response, $container, "ctrlGymkhana");
-  $response = ctrlGymkhana($request, $response, $container);
+  $response = admin($request, $response, $container, "ctrlGymkhana");
 }
 elseif($r === "saveGymkhana") {
-  // $response = login($request, $response, $container, "ctrlCreateGymkhana");
-  $response = ctrlCreateGymkhana($request, $response, $container);
+  $response = admin($request, $response, $container, "ctrlCreateGymkhana");
 }
 elseif($r === "viewGymkhana") {
-  // $response = login($request, $response, $container, "ctrlCreateGymkhana");
   $response = ctrlViewGymkhana($request, $response, $container);
 }
-elseif($r === "ExplorateGymkhana") {
-  $response = ctrlExplorateGymkhana($request, $response, $container);
+elseif($r === "viewQuest") {
+  $response = login($request, $response, $container, "ctrlViewQuest");
+}
+elseif($r === "sendAnswer") {
+  $response = login($request, $response, $container, "ctrlSendAnswer");
+}
+elseif($r === "subscribeGymkhana") {
+  $response = login($request, $response, $container, "ctrlSubscribeGymkhana");
 }
 elseif($r === "userProfile") {
   $response = login($request, $response, $container, "ctrlUserProfile");
 }
 elseif($r === "comms") {
-  $response = ctrlComms($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlComms");
 }
 elseif($r === "quill") {
-  $response = ctrlQuill($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlQuill");
 }
 elseif($r === "ODS") {
-  $response = ctrlOdsIndex($request, $response, $container);
+  $response = ctrlOdsIndex($request, $response, $container); // público
 }
 elseif($r === "editOds") {
-    $response = ctrlOdsEdit($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlOdsEdit");
 }
 elseif($r === "OdsUpdate") {
-    $response = ctrlOdsUpdate($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlOdsUpdate");
 }
 elseif($r === "logOut") {
-    $response = ctrlDoLogOut($request, $response, $container);
-}
-elseif($r === "search") {
-    $response = ctrlSearch($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlDoLogOut");
 }
 elseif($r === "settings") {
-    $response = ctrlSettings($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlSettings");
 }
 elseif($r === "doSettings") {
-    $response = ctrlDoSettings($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlDoSettings");
 }
 elseif($r === "saveSettings") {
-    $response = ctrlSaveSettings($request, $response, $container);
+  $response = login($request, $response, $container, "ctrlSaveSettings");
 }
 elseif($r === "adminUser") {
-    $response = login($request, $response, $container, "ctrlUserGet");
+    $response = admin($request, $response, $container, "ctrlUserGet");
 }
 elseif($r === "UserUpdate") {
-    $response = ctrlUserUpdate($request, $response, $container);
+    $response = admin($request, $response, $container, "ctrlUserUpdate");
 }
 elseif($r === "UserDelete"){
-    $response = ctrlUserDelete($request,$response, $container);
+    $response = admin($request, $response, $container, "ctrlUserDelete");
 }
 elseif($r === "UserAdd"){
-    $response = ctrlUserAdd($request,$response, $container);
+    $response = admin($request, $response, $container, "ctrlUserAdd");
+}
+elseif($r === "addComms"){
+    $response = ctrlAddComms($request,$response, $container);
+}
+elseif($r === "adminComms"){
+    $response = ctrlAdminComms($request,$response, $container);
+}
+elseif($r === "publishComm"){
+    $response = ctrlPublishComm($request,$response, $container);
+}
+elseif($r === "deleteComm"){
+    $response = ctrlDeleteComm($request,$response, $container);
+}
+elseif($r === "petjada"){
+    $response = ctrlCarbon($request,$response, $container);
 }
 else {
-  echo "No existeix la ruta";
+  $response = ctrl404($request,$response, $container);
 }
 
 $response->response();
-/* Enviem la resposta al client només si existeix una resposta vàlida */
-// if ($response instanceof \Emeset\Response && $response->template !== null) {
-// } else {
-//     echo "❌ No existeix la ruta o la plantilla no està definida.";
-// }

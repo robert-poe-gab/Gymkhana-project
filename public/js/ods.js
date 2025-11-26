@@ -44,22 +44,22 @@ if (modalEdit) {
     if (!editQuill) {
       editQuill = new Quill('#editor', {
         modules: {
-          syntax: true,
+            syntax: true,
           toolbar: '#edit-toolbar',
         },
-        placeholder: "Escriu el contingut de l'ODS...",
-        theme: 'snow',
+        placeholder:"Escriu el contingut de l'ODS...",
+        theme:'snow',
       });
     }
 
     if (odsData.text) {
-      editQuill.root.innerHTML = decodeHTMLEntities(odsData.text);
+      editQuill.root.innerHTML =  decodeHTMLEntities(odsData.text);
     } else {
       editQuill.setText('');
     }
 
     editQuill.on('text-change', function () {
-      document.getElementById('text').value = editQuill.getSemanticHTML();
+      document.getElementById('text').value =  editQuill.getSemanticHTML();
     });
 
 

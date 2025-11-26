@@ -1,7 +1,11 @@
 const gymkhanaCoordinates = document.getElementById('map').dataset.location;
-const questsCoordinates = document.getElementById('map').dataset.quests;
 
-const questsArray = JSON.parse(questsCoordinates);
+let questsArray = [];
+if (document.getElementById('map').dataset.quests) {
+  questsArray = JSON.parse(document.getElementById('map').dataset.quests);
+} else if (document.getElementById('map').dataset.quest) {
+  questsArray = [document.getElementById('map').dataset.quest];
+}
 
 const coords = questsArray.map(coord => {
   const [x, y] = coord.split(',').map(Number);
